@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
@@ -16,6 +15,8 @@ import jakarta.persistence.Id;
 @Entity
 public class UserBean implements UserDetails{
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -25,7 +26,6 @@ public class UserBean implements UserDetails{
 	private String roles;
 
 	public UserBean() {
-		
 	}
 	
 	public String getUsername() {
@@ -72,7 +72,4 @@ public class UserBean implements UserDetails{
 	public boolean isEnabled() {
 		return UserDetails.super.isEnabled();
 	}
-	
-	
-	
 }
