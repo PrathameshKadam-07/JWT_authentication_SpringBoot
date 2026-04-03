@@ -24,7 +24,6 @@ public class JWTHelper {
 					.setExpiration(new Date(System.currentTimeMillis()+expire))
 					.signWith(key,SignatureAlgorithm.HS256)
 					.compact();
-			
 	}
 
 }
