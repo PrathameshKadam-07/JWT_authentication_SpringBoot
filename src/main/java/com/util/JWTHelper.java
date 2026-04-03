@@ -4,8 +4,13 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.entity.UserBean;
+
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -26,4 +31,41 @@ public class JWTHelper {
 					.compact();
 	}
 
+	public String extractUsername(String token) {
+		String username = getClaims(token).getSubject();
+		
+		return username;
+	}
+	
+	public Date getExpirationdate(String token) {
+		Date date = getClaims(token).getExpiration();
+		return date;
+	}
+	
+	public boolean isdateExpire(String token) {
+		String username = extractUsername(token);
+		Date date = getExpirationdate(token);
+		
+		return username!=null && !date.before(new Date());
+	}
+	
+	public boolean validatetoken(String username,UserDetails ub,String token) {
+		
+		return username.equals(ub.getUsername()) && !isdateExpire(token);
+	}
+	
+	
+	
+	public Claims getClaims(String token) {
+	    try {
+	        return Jwts.parserBuilder()
+	                .setSigningKey(key)
+	                .build()
+	                .parseClaimsJws(token)
+	                .getBody();
+	    } catch (Exception e) {
+	        throw new RuntimeException("Invalid JWT Token");
+	    }
+	}
+	
 }
