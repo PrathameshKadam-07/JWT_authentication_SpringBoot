@@ -15,6 +15,6 @@ public class HomeController {
 	
 	@GetMapping("/private")
 	public String getprivateApi() {
-		return "TPrivate API";
+		return "Private API";
 	}
 }

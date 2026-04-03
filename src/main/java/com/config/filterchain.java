@@ -21,12 +21,13 @@ public class filterchain {
 			       
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/h2-console/**").permitAll()
+						.requestMatchers("/api/authenticate").permitAll()
 						.requestMatchers("/api/public").permitAll()
 						.anyRequest().authenticated())
 
 			.httpBasic(htpb -> {})
 			
-			.headers(head->head.frameOptions(frame->frame.disable()));
+			.headers(head-> head.frameOptions(frame->frame.disable()));
 			
 		return http.build();
 	}

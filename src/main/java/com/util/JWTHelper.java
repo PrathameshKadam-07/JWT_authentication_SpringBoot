@@ -14,7 +14,7 @@ import io.jsonwebtoken.security.Keys;
 public class JWTHelper {
 	private final long expire = 1000*60*60;
 	
-	private String Secret = "hbhbahbdbbakbkjadbjfbakdb0";
+	private String Secret = "hbhbahbdbbakbkjadsadsdadasdsdasdasdassadsadabjfbakdb0";
 	private SecretKey key = Keys.hmacShaKeyFor(Secret.getBytes());
 	
 	public String getJwtToken(String username) {

@@ -1,8 +1,5 @@
 package com.entity;
 
-import jakarta.persistence.Entity;
-
-@Entity
 public class AuthBean {
 
 	private String username;
@@ -25,7 +22,4 @@ public class AuthBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
 }
