@@ -1,15 +1,9 @@
 package com.util;
 
 import java.util.Date;
-
 import javax.crypto.SecretKey;
-
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import com.entity.UserBean;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -43,6 +37,8 @@ public class JWTHelper {
 	}
 	
 	public boolean isdateExpire(String token) {
+//		check username is not null and token is not expire.
+		
 		String username = extractUsername(token);
 		Date date = getExpirationdate(token);
 		
@@ -50,8 +46,9 @@ public class JWTHelper {
 	}
 	
 	public boolean validatetoken(String username,UserDetails ub,String token) {
+//		Check username is equal to database Username.
 		
-		return username.equals(ub.getUsername()) && !isdateExpire(token);
+		return username.equals(ub.getUsername()) && isdateExpire(token);
 	}
 	
 	

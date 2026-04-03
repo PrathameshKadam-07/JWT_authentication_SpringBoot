@@ -6,9 +6,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.entity.UserBean;
 import com.service.UserService;
 import com.util.JWTHelper;
 import jakarta.servlet.FilterChain;
@@ -16,7 +15,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class JWTfilter extends OncePerRequestFilter {
+	
 	@Autowired
 	JWTHelper jwthelper;
 	
@@ -32,7 +33,7 @@ public class JWTfilter extends OncePerRequestFilter {
 		String token = null;
 		String username = null;
 		
-		if(!header.equals(null) && header.startsWith("Bearer ")) 
+		if(header != null && header.startsWith("Bearer ")) 
 		{
 			try {
 				token = header.substring(7);
@@ -49,17 +50,14 @@ public class JWTfilter extends OncePerRequestFilter {
 						 
 						 UsernamePasswordAuthenticationToken up = new UsernamePasswordAuthenticationToken(ub,null,ub.getAuthorities());
 						 up.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-						 SecurityContextHolder.getContext().setAuthentication(up);; 
+						 SecurityContextHolder.getContext().setAuthentication(up);
 					 }
 				}
 				
-				filterChain.doFilter(request, response);
-				
 			} catch (Exception e) {
-				
-								}
+				throw e;
+				}
 		}
-		
+		filterChain.doFilter(request, response);
 	}
-
 }

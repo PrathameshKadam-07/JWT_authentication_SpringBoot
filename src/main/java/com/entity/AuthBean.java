@@ -5,8 +5,6 @@ public class AuthBean {
 	private String username;
 	private String password;
 	
-	
-	
 	public AuthBean() {
 	}
 	

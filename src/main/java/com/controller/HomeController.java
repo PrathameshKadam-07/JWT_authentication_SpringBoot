@@ -10,7 +10,7 @@ public class HomeController {
 
 	@GetMapping("/public")
 	public String getpublicApi() {
-		return "Publuc API";
+		return "Public API";
 	}
 	
 	@GetMapping("/private")
